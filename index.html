@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="description" content="Learning Vision-Driven Reactive Soccer Skills for Humanoid Robots">
+  <meta name="keywords" content="Robotics, Huamnoid">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>
+    Learning Vision-Driven Reactive Soccer Skills for Humanoid Robots
+  </title>
+
+  <link rel="icon" href="./images/ball.png">
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-QZ38WT2YPD"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+
+    gtag('config', 'G-QZ38WT2YPD');
+  </script>
+
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro" rel="stylesheet">
+  <link rel="stylesheet" href="./css/bulma.min.css">
+  <link rel="stylesheet" href="./css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="./css/bulma-slider.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="./css/index.css">
+
+  <script src="https://kit.fontawesome.com/19914a84eb.js" crossorigin="anonymous"></script>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="./js/bulma-carousel.min.js"></script>
+  <script src="./js/bulma-slider.min.js"></script>
+  <script src="./js/index.js"></script>
+</head>
+
+<section class="hero is-link is-fullheight video" style="overflow: hidden; position:relative">
+  <div class="hero-video" style="height: 100%; width: 177.77777778vh; min-width: 100%;min-height: 56.25vw;">
+    <video playsinline autoplay muted loop>
+      <source src="./videos/background.mp4" type="video/mp4">
+    </video>
+  </div>
+  <div class="hero-video is-hidden-tablet is-inline-block-mobile"
+    style="height: 154.28571428vw; width: 100%; min-width:64.81481481vh;min-height:100%;">
+    <video playsinline autoplay muted loop>
+      <source src="./videos/background_mobile.mp4" type="video/mp4">
+    </video>
+  </div>
+  <div class="overlay"></div>
+  <!-- Hero head: will stick at the top -->
+  <div class="hero-head is-hidden-mobile">
+    <header class="navbar">
+      <div class="container is-size-5">
+        <div class="navbar-menu">
+          <div class="navbar-end">
+            <a class="navbar-item pl-4 pr-4" href="https://arxiv.org/pdf/2511.03996">
+              <span class="icon" style="margin-right:5px;">
+                <img src="./images/pdf.svg" alt="PDF" />
+              </span>
+              <span>Paper</span>
+            </a>
+            <a class="navbar-item pl-4 pr-4" href="https://arxiv.org/abs/2511.03996">
+              <span class="icon" style="margin-right:5px;">
+                <img src="./images/arxiv.svg" alt="ArXiv" />
+              </span>
+              <span>arXiv</span> </a>
+            <span class="navbar-item pl-4 pr-4">
+              <a href="https://youtu.be/ai53vAtAuPA" class="button is-inverted is-large">
+                <span class="icon">
+                  <img src="./images/youtube.svg" alt="Youtube" />
+                </span>
+                <span>Video</span>
+              </a>
+            </span>
+          </div>
+        </div>
+      </div>
+    </header>
+  </div>
+
+  <!-- Hero content: will be in the middle -->
+  <div class="hero-body">
+    <div class="container has-text-centered">
+      <h1 class="title is-1 publication-title is-size-1-mobile" style="font-size: 5rem;">
+        Learning Vision-Driven Reactive Soccer Skills for Humanoid Robots
+      </h1>
+      <h1 class="is-2 is-italic is-size-4-mobile" style="font-size: 2rem; opacity: 80%;">
+        Tsinghua University, Bytedance Seed, China Agricultural University
+      </h1>
+      <h1 class="is-2 is-size-5-mobile" style="font-size: 1.2rem; margin-top: 1rem; margin-bottom: 1rem;">
+        Yushi Wang, Changsheng Luo, Penghui Chen, Jianran Liu, Weijian Sun, Tong Guo, Kechang Yang, Biao Hu,
+        Yangang Zhang, Mingguo Zhao
+      </h1>
+      <div class="column has-text-centered is-hidden-tablet">
+        <div class="publication-links">
+          <!-- PDF Link. -->
+          <span class="link-block">
+            <a href="https://arxiv.org/pdf/2511.03996" class="external-link button is-normal is-rounded is-dark">
+              <span class="icon">
+                <img src="./images/pdf.svg" alt="PDF" />
+              </span>
+              <span>Paper</span>
+            </a>
+          </span>
+          <span class="link-block">
+            <a href="https://arxiv.org/abs/2511.03996" class="external-link button is-normal is-rounded is-dark">
+              <span class="icon">
+                <img src="./images/arxiv.svg" alt="ArXiv" />
+              </span>
+              <span>arXiv</span>
+            </a>
+          </span>
+          <!-- Video Link. -->
+          <span class="link-block">
+            <a href="https://youtu.be/ai53vAtAuPA" class="external-link button is-normal is-rounded is-dark">
+              <span class="icon">
+                <img src="./images/youtube.svg" alt="Youtube" />
+              </span>
+              <span>Video</span>
+            </a>
+          </span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Hero footer: will stick at the bottom -->
+  <div class="hero-foot is-hidden-mobile">
+    <nav class="tabs is-boxed is-fullwidth is-size-5">
+      <ul>
+        <li><a href="#overview">Overview</a></li>
+        <li><a href="#results">Results</a></li>
+        <li><a href="#methods">Methods</a></li>
+        <li><a href="#acknowledgments">Acknowledgments</a></li>
+      </ul>
+    </nav>
+  </div>
+</section>
+
+<section class="section is-medium" id="overview">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths has-text-justified">
+        <p>
+          <strong>Abstract: </strong> Humanoid soccer poses a representative challenge for embodied intelligence,
+          requiring robots to operate within a tightly coupled perception-action loop. However, existing systems
+          typically rely on decoupled modules, resulting in delayed responses and incoherent behaviors in dynamic
+          environments, while real-world perceptual limitations further exacerbate these issues. In this work, we
+          present a unified reinforcement learning-based controller that enables humanoid robots to acquire reactive
+          soccer skills through the direct integration of visual perception and motion control. Our approach extends
+          Adversarial Motion Priors to perceptual settings in real-world dynamic environments, bridging motion imitation
+          and visually grounded dynamic control. We introduce an encoder-decoder architecture combined with a virtual
+          perception system that models real-world visual characteristics, allowing the policy to recover privileged
+          states from imperfect observations and establish active coordination between perception and action. The
+          resulting controller demonstrates strong reactivity, consistently executing coherent and robust soccer
+          behaviors across various scenarios, including real RoboCup matches.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" style="padding-top: 0rem;">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <div class="publication-video">
+          <iframe src="https://www.youtube.com/embed/ai53vAtAuPA?si=bWhvGZilH3bHf9wO" title="YouTube video player"
+            frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="results">
+  <div class="container">
+    <hr width="100%" size="2">
+    <h2 class="title is-3 has-text-centered is-size-3-mobile">Outdoor Environments</h2>
+    <div class="columns is-centered">
+      <div class="column">
+        <div class="columns is-centered">
+          <div class="column content has-text-centered">
+            <video autoplay controls muted loop playsinline width="100%"
+              style="border-radius: 10px; margin: 1.0%; box-shadow: 0.5em 0.5em 1em rgba(0, 0, 0, 0.2);">
+              <source src="./videos/outdoor_1.mp4" type="video/mp4">
+            </video>
+          </div>
+        </div>
+        <div class="columns is-centered">
+          <div class="column content has-text-centered">
+            <video autoplay controls muted loop playsinline width="100%"
+              style="border-radius: 10px; margin: 1.0%; box-shadow: 0.5em 0.5em 1em rgba(0, 0, 0, 0.2);">
+              <source src="./videos/outdoor_4.mp4" type="video/mp4">
+            </video>
+          </div>
+        </div>
+      </div>
+      <div class="column">
+        <div class="columns is-centered">
+          <div class="column content has-text-centered">
+            <video autoplay controls muted loop playsinline width="100%"
+              style="border-radius: 10px; margin: 1.0%; box-shadow: 0.5em 0.5em 1em rgba(0, 0, 0, 0.2);">
+              <source src="./videos/outdoor_2.mp4" type="video/mp4">
+            </video>
+          </div>
+        </div>
+        <div class="columns is-centered">
+          <div class="column content has-text-centered">
+            <video autoplay controls muted loop playsinline width="100%"
+              style="border-radius: 10px; margin: 1.0%; box-shadow: 0.5em 0.5em 1em rgba(0, 0, 0, 0.2);">
+              <source src="./videos/outdoor_5.mp4" type="video/mp4">
+            </video>
+          </div>
+        </div>
+      </div>
+      <div class="column">
+        <div class="columns is-centered">
+          <div class="column content has-text-centered">
+            <video autoplay controls muted loop playsinline width="100%"
+              style="border-radius: 10px; margin: 1.0%; box-shadow: 0.5em 0.5em 1em rgba(0, 0, 0, 0.2);">
+              <source src="./videos/outdoor_3.mp4" type="video/mp4">
+            </video>
+          </div>
+        </div>
+        <div class="columns is-centered">
+          <div class="column content has-text-centered">
+            <video autoplay controls muted loop playsinline width="100%"
+              style="border-radius: 10px; margin: 1.0%; box-shadow: 0.5em 0.5em 1em rgba(0, 0, 0, 0.2);">
+              <source src="./videos/outdoor_6.mp4" type="video/mp4">
+            </video>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <h2 class="title is-3 has-text-centered is-size-3-mobile">RoboCup Matches</h2>
+    <div class="columns is-centered">
+      <div class="column">
+        <div class="columns is-centered">
+          <div class="column content has-text-centered">
+            <video autoplay controls muted loop playsinline width="100%"
+              style="border-radius: 10px; margin: 1.0%; box-shadow: 0.5em 0.5em 1em rgba(0, 0, 0, 0.2);">
+              <source src="./videos/robocup_1.mp4" type="video/mp4">
+            </video>
+          </div>
+        </div>
+        <div class="columns is-centered">
+          <div class="column content has-text-centered">
+            <video autoplay controls muted loop playsinline width="100%"
+              style="border-radius: 10px; margin: 1.0%; box-shadow: 0.5em 0.5em 1em rgba(0, 0, 0, 0.2);">
+              <source src="./videos/robocup_4.mp4" type="video/mp4">
+            </video>
+          </div>
+        </div>
+      </div>
+      <div class="column">
+        <div class="columns is-centered">
+          <div class="column content has-text-centered">
+            <video autoplay controls muted loop playsinline width="100%"
+              style="border-radius: 10px; margin: 1.0%; box-shadow: 0.5em 0.5em 1em rgba(0, 0, 0, 0.2);">
+              <source src="./videos/robocup_2.mp4" type="video/mp4">
+            </video>
+          </div>
+        </div>
+        <div class="columns is-centered">
+          <div class="column content has-text-centered">
+            <video autoplay controls muted loop playsinline width="100%"
+              style="border-radius: 10px; margin: 1.0%; box-shadow: 0.5em 0.5em 1em rgba(0, 0, 0, 0.2);">
+              <source src="./videos/robocup_5.mp4" type="video/mp4">
+            </video>
+          </div>
+        </div>
+      </div>
+      <div class="column">
+        <div class="columns is-centered">
+          <div class="column content has-text-centered">
+            <video autoplay controls muted loop playsinline width="100%"
+              style="border-radius: 10px; margin: 1.0%; box-shadow: 0.5em 0.5em 1em rgba(0, 0, 0, 0.2);">
+              <source src="./videos/robocup_3.mp4" type="video/mp4">
+            </video>
+          </div>
+        </div>
+        <div class="columns is-centered">
+          <div class="column content has-text-centered">
+            <video autoplay controls muted loop playsinline width="100%"
+              style="border-radius: 10px; margin: 1.0%; box-shadow: 0.5em 0.5em 1em rgba(0, 0, 0, 0.2);">
+              <source src="./videos/robocup_6.mp4" type="video/mp4">
+            </video>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <h2 class="title is-3 has-text-centered is-size-3-mobile">Continuous Performance</h2>
+    <div class="columns is-centered">
+      <div class="column is-full-width is-centered has-text-centered">
+        <video autoplay controls muted loop playsinline width="100%"
+          style="border-radius: 10px; margin: 1.0%; box-shadow: 0.5em 0.5em 1em rgba(0, 0, 0, 0.2);">
+          <source src="./videos/continuous_1.mp4" type="video/mp4">
+        </video>
+      </div>
+      <div class="column is-full-width is-centered has-text-centered">
+        <video autoplay controls muted loop playsinline width="100%"
+          style="border-radius: 10px; margin: 1.0%; box-shadow: 0.5em 0.5em 1em rgba(0, 0, 0, 0.2);">
+          <source src="./videos/continuous_2.mp4" type="video/mp4">
+        </video>
+      </div>
+      <div class="column is-full-width is-centered has-text-centered">
+        <video autoplay controls muted loop playsinline width="100%"
+          style="border-radius: 10px; margin: 1.0%; box-shadow: 0.5em 0.5em 1em rgba(0, 0, 0, 0.2);">
+          <source src="./videos/continuous_3.mp4" type="video/mp4">
+        </video>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="agile">
+  <div class="container">
+    <h2 class="title is-3 has-text-centered is-size-3-mobile">Agile Behaviors</h2>
+    <div class="columns is-centered">
+      <div class="column is-one-third">
+        <div class="columns is-centered">
+          <div class="column content has-text-centered">
+            <h2 class="title is-4 has-text-centered" style="margin-bottom: 0.75rem;">Forward</h2>
+            <video autoplay controls muted loop playsinline width="100%"
+              style="border-radius: 10px; margin: 1.0%; box-shadow: 0.5em 0.5em 1em rgba(0, 0, 0, 0.2);">
+              <source src="./videos/kick_forward.mp4" type="video/mp4">
+            </video>
+          </div>
+        </div>
+        <div class="columns is-centered">
+          <div class="column content has-text-centered">
+            <h2 class="title is-4 has-text-centered" style="margin-bottom: 0.75rem;">Left</h2>
+            <video autoplay controls muted loop playsinline width="100%"
+              style="border-radius: 10px; margin: 1.0%; box-shadow: 0.5em 0.5em 1em rgba(0, 0, 0, 0.2);">
+              <source src="./videos/kick_left.mp4" type="video/mp4">
+            </video>
+          </div>
+        </div>
+      </div>
+      <div class="column is-one-third">
+        <div class="columns is-centered">
+          <div class="column content has-text-centered">
+            <h2 class="title is-4 has-text-centered" style="margin-bottom: 0.75rem;">Backward</h2>
+            <video autoplay controls muted loop playsinline width="100%"
+              style="border-radius: 10px; margin: 1.0%; box-shadow: 0.5em 0.5em 1em rgba(0, 0, 0, 0.2);">
+              <source src="./videos/kick_backward.mp4" type="video/mp4">
+            </video>
+          </div>
+        </div>
+        <div class="columns is-centered">
+          <div class="column content has-text-centered">
+            <h2 class="title is-4 has-text-centered" style="margin-bottom: 0.75rem;">Right</h2>
+            <video autoplay controls muted loop playsinline width="100%"
+              style="border-radius: 10px; margin: 1.0%; box-shadow: 0.5em 0.5em 1em rgba(0, 0, 0, 0.2);">
+              <source src="./videos/kick_right.mp4" type="video/mp4">
+            </video>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="dynamic">
+  <div class="container">
+    <h2 class="title is-3 has-text-centered is-size-3-mobile">Dynamic Movements</h2>
+    <div class="columns is-centered">
+      <div class="column is-one-third">
+        <div class="columns is-centered">
+          <div class="column content has-text-centered">
+            <video autoplay controls muted loop playsinline width="100%"
+              style="border-radius: 10px; margin: 1.0%; box-shadow: 0.5em 0.5em 1em rgba(0, 0, 0, 0.2);">
+              <source src="./videos/rolling_1.mp4" type="video/mp4">
+            </video>
+          </div>
+        </div>
+        <div class="columns is-centered">
+          <div class="column content has-text-centered">
+            <video autoplay controls muted loop playsinline width="100%"
+              style="border-radius: 10px; margin: 1.0%; box-shadow: 0.5em 0.5em 1em rgba(0, 0, 0, 0.2);">
+              <source src="./videos/rolling_3.mp4" type="video/mp4">
+            </video>
+          </div>
+        </div>
+      </div>
+      <div class="column is-one-third">
+        <div class="columns is-centered">
+          <div class="column content has-text-centered">
+            <video autoplay controls muted loop playsinline width="100%"
+              style="border-radius: 10px; margin: 1.0%; box-shadow: 0.5em 0.5em 1em rgba(0, 0, 0, 0.2);">
+              <source src="./videos/rolling_2.mp4" type="video/mp4">
+            </video>
+          </div>
+        </div>
+        <div class="columns is-centered">
+          <div class="column content has-text-centered">
+            <video autoplay controls muted loop playsinline width="100%"
+              style="border-radius: 10px; margin: 1.0%; box-shadow: 0.5em 0.5em 1em rgba(0, 0, 0, 0.2);">
+              <source src="./videos/rolling_4.mp4" type="video/mp4">
+            </video>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="adaptive">
+  <div class="container">
+    <h2 class="title is-3 has-text-centered is-size-3-mobile">Adaptive Gait</h2>
+    <div class="columns is-centered">
+      <div class="column is-two-thirds">
+        <div class="columns is-centered">
+          <div class="column content has-text-centered">
+            <video autoplay controls muted loop playsinline width="100%"
+              style="border-radius: 10px; margin: 1.0%; box-shadow: 0.5em 0.5em 1em rgba(0, 0, 0, 0.2);">
+              <source src="./videos/adaptive.mp4" type="video/mp4">
+            </video>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="success">
+  <div class="container">
+    <h2 class="title is-3 has-text-centered is-size-3-mobile">Success Rate</h2>
+    <div class="columns is-centered">
+      <div class="column is-one-third">
+        <div class="columns is-centered">
+          <div class="column content has-text-centered">
+            <!-- <h3 class="title is-4" style="margin-bottom: 0rem;">(4, 3)</h3> -->
+            <video autoplay controls muted loop playsinline width="100%"
+              style="border-radius: 10px; margin: 1.0%; box-shadow: 0.5em 0.5em 1em rgba(0, 0, 0, 0.2);">
+              <source src="./videos/4,3.mp4" type="video/mp4">
+            </video>
+          </div>
+        </div>
+        <div class="columns is-centered">
+          <div class="column content has-text-centered">
+            <!-- <h3 class="title is-4" style="margin-bottom: 0rem;">(−4, 3)</h3> -->
+            <video autoplay controls muted loop playsinline width="100%"
+              style="border-radius: 10px; margin: 1.0%; box-shadow: 0.5em 0.5em 1em rgba(0, 0, 0, 0.2);">
+              <source src="./videos/-4,3.mp4" type="video/mp4">
+            </video>
+          </div>
+        </div>
+      </div>
+      <div class="column is-one-third">
+        <div class="columns is-centered">
+          <div class="column content has-text-centered">
+            <!-- <h3 class="title is-4" style="margin-bottom: 0rem;">(4, −3)</h3> -->
+            <video autoplay controls muted loop playsinline width="100%"
+              style="border-radius: 10px; margin: 1.0%; box-shadow: 0.5em 0.5em 1em rgba(0, 0, 0, 0.2);">
+              <source src="./videos/4,-3.mp4" type="video/mp4">
+            </video>
+          </div>
+        </div>
+        <div class="columns is-centered">
+          <div class="column content has-text-centered">
+            <!-- <h3 class="title is-4" style="margin-bottom: 0rem;">(−4, −3)</h3> -->
+            <video autoplay controls muted loop playsinline width="100%"
+              style="border-radius: 10px; margin: 1.0%; box-shadow: 0.5em 0.5em 1em rgba(0, 0, 0, 0.2);">
+              <source src="./videos/-4,-3.mp4" type="video/mp4">
+            </video>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="methods">
+  <div class="container is-max-desktop">
+    <hr width="100%" size="2">
+    <h2 class="title is-3 has-text-centered is-size-3-mobile">Methods</h2>
+    <div class="columns is-centered">
+      <div class="column is-four-fifths">
+        <div class="content has-text-centered">
+          <img src="./images/framework.svg" />
+        </div>
+        <div class="content has-text-justified">
+          <ul>
+            <li style="color: #2e5aa8;"><b>Training: </b><span style="color: #4a4a4a;">The actor receives partial
+                observations and reconstructs the full state from historical data using an encoder-decoder architecture.
+                The policy is trained with PPO, with rewards from both the environment and a discriminator encoding
+                motion priors, while multiple critics provide value estimates.</span></li>
+            <li style="color: #2e5aa8;"><b>Deployment: </b><span style="color: #4a4a4a;">The real-world robot
+                is equipped with an onboard camera for visual perception. The detected ball positions are directly
+                provided to the policy, while an odometer module estimates the goal location from long-term
+                information.</span></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<section class="section" id="acknowledgments">
+  <div class="container is-max-desktop">
+    <hr width="100%" size="2">
+    <h2 class="title is-3 has-text-centered is-size-3-mobile">Acknowledgments</h2>
+    <div class="columns is-centered">
+      <div class="column is-four-fifths has-text-justified">
+        <p>
+          We thank Booster Robotics for providing the robot platform, experimental environment, and technical support.
+          We thank Tinglong Zheng and Yunkang Cheng for assistance in data collection and experiments. This work was
+          partly supported by STI 2030-Major Projects (No. 2021ZD0201402, No. 2021ZD0201401), Beijing Natural Science
+          Foundation (No. L243004), and Tsinghua University Initiative Scientific Research Program (Student Academic
+          Research Advancement Program: Zhuiguang Special Project, No. 20257020011).
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3 is-size-4-mobile">BibTeX</h2>
+    <pre><code>@article{wang2025learning,
+  title   = {Learning Vision-Driven Reactive Soccer Skills for Humanoid Robots},
+  author  = {Wang, Yushi and Luo, Changsheng and Chen, Penghui and Liu, Jianran and Sun, Weijian and Guo, Tong and Yang, Kechang and Hu, Biao and Zhang, Yangang and Zhao, Mingguo},
+  journal = {arXiv preprint arXiv:2511.03996},
+  year    = {2025},
+}</code></pre>
+  </div>
+</section>
+
+
+
+<footer class="footer">
+  <div class="container">
+    <div class="columns is-centered">
+      <div class="column is-8">
+        <div class="content">
+          <p>
+            Website template borrowed from <a href="https://github.com/nerfies/nerfies.github.io">NeRFies</a> and <a
+              href="https://github.com/umi-on-legs/umi-on-legs.github.io">UMI on Legs</a>.
+          </p>
+          <p>
+            All rights reserved. Redistribution of contents on this website is prohibited without explicit permission.
+          </p>
+          <p>
+            If you have any questions, please contact <a href="https://yushi.ws">Yushi Wang</a>.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+</body>
+
+</html>
